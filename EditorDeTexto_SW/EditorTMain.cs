@@ -12,11 +12,12 @@ using System.Diagnostics;
 using System.Threading;
 using System.Configuration;
 using System.Collections.Specialized;
+using System.Reflection;
 
 namespace EditorDeTexto_SW
 //*****************************************************************************************************************************
 //                        EDITOR DE TEXTO
-//                          UNMSM - GPO
+//                          UNMSM - GPS
 //*****************************************************************************************************************************
    
 {
@@ -33,15 +34,18 @@ namespace EditorDeTexto_SW
 
         private void EditorTMain_Load(object sender, EventArgs e)
         {
+            
             TipoFuente = ConfigurationManager.AppSettings.Get("Tipofuente");           
             FontDialog font = new FontDialog();  
             var ConvertFuente = StringToFont(TipoFuente);
-            font.Font = ConvertFuente;
-            txtEditexRT_Ul.Font = font.Font;
-            txtEditexRT_Ul.Focus();           
+            if (ConvertFuente != null) {
+                font.Font = ConvertFuente;
+                txtEditexRT_Ul.Font = font.Font;              
+            }
+            txtEditexRT_Ul.Focus();
             txtEditexRT_Ul.AllowDrop = true;
-            txtEditexRT_Ul.DragDrop += txtEditexRT_Ul_DragEnter;           
-            ToolVersion.Text = "v 1.00.2";           
+            txtEditexRT_Ul.DragDrop += txtEditexRT_Ul_DragEnter;
+            ToolVersion.Text = "v 1.00.3";
         }
        
 
@@ -72,7 +76,6 @@ namespace EditorDeTexto_SW
 
         void AbrirArchivo() 
         {
-            var Cadena_Cuerpo = "";
             OpenFileDialog Open = new OpenFileDialog();
             Open.Filter = "Text [*.txt*]|*.txt|All Files [*,*]|*,*";
             Open.CheckFileExists = true;
@@ -187,12 +190,15 @@ namespace EditorDeTexto_SW
 
         public static Font StringToFont(string font)
         {
-            string[] parts = font.Split(':');
-            if (parts.Length != 3)
-                throw new ArgumentException("Not a valid font string", "font");
+            if (font != null) {
+                string[] parts = font.Split(':');
+                if (parts.Length != 3)
+                    throw new ArgumentException("Not a valid font string", "font");
 
-            Font loadedFont = new Font(parts[0], float.Parse(parts[1]), (FontStyle)int.Parse(parts[2]));
-            return loadedFont;
+                Font loadedFont = new Font(parts[0], float.Parse(parts[1]), (FontStyle)int.Parse(parts[2]));
+                return loadedFont;
+            }
+            return null;
         }
 
         private void colorDeLetraToolStripMenuItem_Click(object sender, EventArgs e)
@@ -449,8 +455,58 @@ namespace EditorDeTexto_SW
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
-        }      
-             
-   }    
+        }
+
+        private void correctorOrtográficoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtEditexRT_Ul.Text = RevisarOrtografia(txtEditexRT_Ul.Text);
+        }
+
+        private static string RevisarOrtografia(string texto)
+        {            
+            var app = new Microsoft.Office.Interop.Word.Application();
+            int SpellingErrors = 0;
+            string corregido = string.Empty;
+            if (!String.IsNullOrEmpty(texto))
+            {
+
+                app.Visible = false;
+                object template = Missing.Value;
+                object newTemplate = Missing.Value;
+                object documentType = Missing.Value;
+                object visible = false;
+                Microsoft.Office.Interop.Word._Document doc1 = app.Documents.Add(ref template, ref newTemplate,
+                ref documentType, ref visible);
+                doc1.Words.First.InsertBefore(texto);
+
+                Microsoft.Office.Interop.Word.ProofreadingErrors docErrors = doc1.SpellingErrors;
+                SpellingErrors = docErrors.Count;                
+
+                object optional = Missing.Value;
+                doc1.CheckSpelling(
+                ref optional, ref optional, ref optional, ref optional, ref optional, ref optional,
+                ref optional, ref optional, ref optional, ref optional, ref optional, ref optional);
+                object first = 0;
+                object last = doc1.Characters.Count - 1;
+                corregido = doc1.Range(ref first, ref last).Text;
+            }
+
+            if (SpellingErrors == 0)
+            {
+                MessageBox.Show("No se encontraron errores en el texto");
+            }
+
+            object saveChanges = false;
+            object originalFormat = Missing.Value;
+            object routeDocument = Missing.Value;
+            app.Application.Quit(ref saveChanges, ref originalFormat, ref routeDocument);
+            return corregido;
+        }
+
+        private void btnSpellCheck_Click(object sender, EventArgs e)
+        {
+            txtEditexRT_Ul.Text = RevisarOrtografia(txtEditexRT_Ul.Text);
+        }
+    }    
     
 }
