@@ -86,3 +86,24 @@ D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\EditorDeTexto_S
 D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\EditorDeTexto_Sprint2\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.exe
 D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\EditorDeTexto_Sprint2\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.pdb
 D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\EditorDeTexto_Sprint2\EditorDeTexto_SW\bin\Debug\EditorDeTexto_SW.exe.config
+C:\Users\Richar\Downloads\EditorDeTexto_Sprint3-master\EditorDeTexto_SW\bin\Debug\EditorDeTexto_SW.exe.config
+C:\Users\Richar\Downloads\EditorDeTexto_Sprint3-master\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.exe
+C:\Users\Richar\Downloads\EditorDeTexto_Sprint3-master\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.pdb
+C:\Users\Richar\Downloads\EditorDeTexto_Sprint3-master\EditorDeTexto_SW\bin\Debug\EditorDeTexto_SW.exe
+C:\Users\Richar\Downloads\EditorDeTexto_Sprint3-master\EditorDeTexto_SW\bin\Debug\EditorDeTexto_SW.pdb
+C:\Users\Richar\Downloads\EditorDeTexto_Sprint3-master\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.csprojResolveAssemblyReference.cache
+C:\Users\Richar\Downloads\EditorDeTexto_Sprint3-master\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.Buscar.resources
+C:\Users\Richar\Downloads\EditorDeTexto_Sprint3-master\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.EditorTMain.resources
+C:\Users\Richar\Downloads\EditorDeTexto_Sprint3-master\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.Nostros.resources
+C:\Users\Richar\Downloads\EditorDeTexto_Sprint3-master\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.Properties.Resources.resources
+C:\Users\Richar\Downloads\EditorDeTexto_Sprint3-master\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.csproj.GenerateResource.Cache
+D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_SW\bin\Debug\EditorDeTexto_SW.exe.config
+D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.exe
+D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.pdb
+D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_SW\bin\Debug\EditorDeTexto_SW.exe
+D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_SW\bin\Debug\EditorDeTexto_SW.pdb
+D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.Buscar.resources
+D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.EditorTMain.resources
+D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.Nostros.resources
+D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.Properties.Resources.resources
+D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.csproj.GenerateResource.Cache

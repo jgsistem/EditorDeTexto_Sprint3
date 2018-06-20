@@ -43,6 +43,7 @@
             this.fuenteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDeLetraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDeFondoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.correctorOrtográficoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nosotrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -56,6 +57,7 @@
             this.Guardar = new System.Windows.Forms.ToolStripButton();
             this.GuardarComo = new System.Windows.Forms.ToolStripButton();
             this.Buscar = new System.Windows.Forms.ToolStripButton();
+            this.btnSpellCheck = new System.Windows.Forms.ToolStripButton();
             this.txtEditexRT_Ul = new System.Windows.Forms.RichTextBox();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.menuStrip1.SuspendLayout();
@@ -154,7 +156,8 @@
             this.buscarToolStripMenuItem,
             this.fuenteToolStripMenuItem1,
             this.colorDeLetraToolStripMenuItem,
-            this.colorDeFondoToolStripMenuItem});
+            this.colorDeFondoToolStripMenuItem,
+            this.correctorOrtográficoToolStripMenuItem});
             this.fuenteToolStripMenuItem.Name = "fuenteToolStripMenuItem";
             this.fuenteToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.fuenteToolStripMenuItem.Text = "Utilitarios";
@@ -164,7 +167,7 @@
             this.buscarToolStripMenuItem.Image = global::EditorDeTexto_SW.Properties.Resources.find1;
             this.buscarToolStripMenuItem.Name = "buscarToolStripMenuItem";
             this.buscarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.buscarToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.buscarToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.buscarToolStripMenuItem.Text = "Buscar";
             this.buscarToolStripMenuItem.Click += new System.EventHandler(this.buscarToolStripMenuItem_Click);
             // 
@@ -173,7 +176,7 @@
             this.fuenteToolStripMenuItem1.Image = global::EditorDeTexto_SW.Properties.Resources.font;
             this.fuenteToolStripMenuItem1.Name = "fuenteToolStripMenuItem1";
             this.fuenteToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.fuenteToolStripMenuItem1.Size = new System.Drawing.Size(156, 22);
+            this.fuenteToolStripMenuItem1.Size = new System.Drawing.Size(188, 22);
             this.fuenteToolStripMenuItem1.Text = "Fuente";
             this.fuenteToolStripMenuItem1.Click += new System.EventHandler(this.fuenteToolStripMenuItem1_Click);
             // 
@@ -190,10 +193,18 @@
             // 
             this.colorDeFondoToolStripMenuItem.Image = global::EditorDeTexto_SW.Properties.Resources.undo;
             this.colorDeFondoToolStripMenuItem.Name = "colorDeFondoToolStripMenuItem";
-            this.colorDeFondoToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.colorDeFondoToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.colorDeFondoToolStripMenuItem.Text = "Color de Fondo";
             this.colorDeFondoToolStripMenuItem.Visible = false;
             this.colorDeFondoToolStripMenuItem.Click += new System.EventHandler(this.colorDeFondoToolStripMenuItem_Click);
+            // 
+            // correctorOrtográficoToolStripMenuItem
+            // 
+            this.correctorOrtográficoToolStripMenuItem.Image = global::EditorDeTexto_SW.Properties.Resources.spellcheck;
+            this.correctorOrtográficoToolStripMenuItem.Name = "correctorOrtográficoToolStripMenuItem";
+            this.correctorOrtográficoToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.correctorOrtográficoToolStripMenuItem.Text = "Corrector Ortográfico";
+            this.correctorOrtográficoToolStripMenuItem.Click += new System.EventHandler(this.correctorOrtográficoToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -263,7 +274,8 @@
             this.Abrir,
             this.Guardar,
             this.GuardarComo,
-            this.Buscar});
+            this.Buscar,
+            this.btnSpellCheck});
             this.toolStrip_AccessDire.Location = new System.Drawing.Point(0, 46);
             this.toolStrip_AccessDire.Name = "toolStrip_AccessDire";
             this.toolStrip_AccessDire.Size = new System.Drawing.Size(640, 25);
@@ -320,6 +332,16 @@
             this.Buscar.Text = "Buscar";
             this.Buscar.Click += new System.EventHandler(this.Buscar_Click);
             // 
+            // btnSpellCheck
+            // 
+            this.btnSpellCheck.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSpellCheck.Image = global::EditorDeTexto_SW.Properties.Resources.spellcheck;
+            this.btnSpellCheck.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSpellCheck.Name = "btnSpellCheck";
+            this.btnSpellCheck.Size = new System.Drawing.Size(23, 22);
+            this.btnSpellCheck.Text = "Corrector Ortográfico";
+            this.btnSpellCheck.Click += new System.EventHandler(this.btnSpellCheck_Click);
+            // 
             // txtEditexRT_Ul
             // 
             this.txtEditexRT_Ul.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -352,6 +374,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "EditorTMain";
             this.Text = "...::: Editor de Texto GPO  ::::...";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditorTMain_FormClosing);
             this.Load += new System.EventHandler(this.EditorTMain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -398,5 +421,7 @@
         private System.Windows.Forms.RichTextBox txtEditexRT_Ul;
         private System.Windows.Forms.ToolStripMenuItem buscarToolStripMenuItem;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private System.Windows.Forms.ToolStripMenuItem correctorOrtográficoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton btnSpellCheck;
     }
 }

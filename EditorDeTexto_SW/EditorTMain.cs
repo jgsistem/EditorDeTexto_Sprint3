@@ -12,67 +12,109 @@ using System.Diagnostics;
 using System.Threading;
 using System.Configuration;
 using System.Collections.Specialized;
+using System.Reflection;
 
 namespace EditorDeTexto_SW
 //*****************************************************************************************************************************
 //                        EDITOR DE TEXTO
-//                          UNMSM - GPO
+//                          UNMSM - GPS
 //*****************************************************************************************************************************
-   
 {
     public partial class EditorTMain : Form
-    {                        
-        
-        String RutaArchivo = null;
+    {
+
+        String RutaArchivo, RutaApp = null;
         String TipoFuente = null;
+        int TotalText, TotalTextTemp = 0;
+
         public EditorTMain()
         {
-            
-            InitializeComponent();           
+
+            InitializeComponent();
         }
 
         private void EditorTMain_Load(object sender, EventArgs e)
         {
-            TipoFuente = ConfigurationManager.AppSettings.Get("Tipofuente");           
-            FontDialog font = new FontDialog();  
+
+            TipoFuente = ConfigurationManager.AppSettings.Get("Tipofuente");
+            FontDialog font = new FontDialog();
             var ConvertFuente = StringToFont(TipoFuente);
-            font.Font = ConvertFuente;
-            txtEditexRT_Ul.Font = font.Font;
-            txtEditexRT_Ul.Focus();           
+            if (ConvertFuente != null)
+            {
+                font.Font = ConvertFuente;
+                txtEditexRT_Ul.Font = font.Font;
+            }
+            txtEditexRT_Ul.Focus();
             txtEditexRT_Ul.AllowDrop = true;
-            txtEditexRT_Ul.DragDrop += txtEditexRT_Ul_DragEnter;           
-            ToolVersion.Text = "v 1.00.2";           
+            txtEditexRT_Ul.DragDrop += txtEditexRT_Ul_DragEnter;
+            ToolVersion.Text = "v 1.00.3";
+            RutaApp = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+
         }
-       
+
+        void EjecutarExe(string RutaApp)
+        {
+            try
+            {
+                ProcessStartInfo info = new ProcessStartInfo();
+                info.UseShellExecute = true;
+                info.FileName = ConfigurationManager.AppSettings.Get("name");
+                info.WorkingDirectory = RutaApp;
+                Process.Start(info);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           NuevoArchivo();
+            NuevoArchivo();
         }
 
         void NuevoArchivo()
-        { 
+        {
             txtEditexRT_Ul.Clear();
-           BarraName.Text = "";
-        
+            BarraName.Text = "";
+            TotalText = 0;
+            TotalTextTemp = 0;
+
         }
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (txtEditexRT_Ul.TextLength > 0)
             {
-                NuevoArchivo();
-                AbrirArchivo();
+                TotalTextTemp = txtEditexRT_Ul.TextLength;
+                if ((TotalTextTemp > TotalText) || (TotalText == 0))
+                {
+                    if (MessageBox.Show("Desea Guardar los Cambios? ", "Editor De Texto",
+                                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        saveAs();
+                    }
+                    else
+                    {
+                        NuevoArchivo();
+                        AbrirArchivo();
+                    }
+
+                }
+                else
+                {
+                    NuevoArchivo();
+                    AbrirArchivo();
+                }
             }
             else
             {
                 AbrirArchivo();
-            }           
+            }
         }
 
-        void AbrirArchivo() 
+        void AbrirArchivo()
         {
-            var Cadena_Cuerpo = "";
             OpenFileDialog Open = new OpenFileDialog();
             Open.Filter = "Text [*.txt*]|*.txt|All Files [*,*]|*,*";
             Open.CheckFileExists = true;
@@ -88,9 +130,9 @@ namespace EditorDeTexto_SW
                     while ((line = sr.ReadLine()) != null)
                     {
                         Lines = line + "\r\n";
-                        txtEditexRT_Ul.Text += Lines;                        
+                        txtEditexRT_Ul.Text += Lines;
                     }
-
+                    TotalText = txtEditexRT_Ul.TextLength;
                     //txtEditexRT_Ul.Text = Cadena_Cuerpo.ToString();
                 }
                 BarraName.Text = RutaArchivo;
@@ -105,7 +147,7 @@ namespace EditorDeTexto_SW
                 Open.Dispose();
             }
         }
-       
+
 
         void saveAs()
         {
@@ -124,7 +166,8 @@ namespace EditorDeTexto_SW
 
             }
             catch (Exception) { }
-            finally {
+            finally
+            {
                 BarraName.Text = RutaArchivo;
             }
         }
@@ -133,7 +176,7 @@ namespace EditorDeTexto_SW
         {
             SaveFileDialog Save = new SaveFileDialog();
             System.IO.StreamWriter myStreamWriter = null;
-            Save.Filter = "Text (*.txt)|*.txt|HTML(*.html*)|*.html|All files(*.*)|*.*";           
+            Save.Filter = "Text (*.txt)|*.txt|HTML(*.html*)|*.html|All files(*.*)|*.*";
             try
             {
                 myStreamWriter = System.IO.File.AppendText(RutaArchivo);
@@ -157,24 +200,31 @@ namespace EditorDeTexto_SW
             else
             {
                 saveAs();
-            }          
-        }       
+            }
+        }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            foreach (Process proceso in Process.GetProcesses())
+            {
+                if (proceso.ProcessName == ConfigurationManager.AppSettings.Get("nameN"))
+                {
+                    proceso.Kill();
+                }
+            }
             Close();
         }
 
         private void fuenteToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            FontDialog font = new FontDialog(); 
+            FontDialog font = new FontDialog();
             if (font.ShowDialog() == DialogResult.OK)
             {
                 var fontString = FontToString(font.Font);
                 txtEditexRT_Ul.Font = font.Font;
                 Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
                 config.AppSettings.Settings["Tipofuente"].Value = fontString;
-                config.Save(ConfigurationSaveMode.Modified);                
+                config.Save(ConfigurationSaveMode.Modified);
             }
         }
 
@@ -187,12 +237,16 @@ namespace EditorDeTexto_SW
 
         public static Font StringToFont(string font)
         {
-            string[] parts = font.Split(':');
-            if (parts.Length != 3)
-                throw new ArgumentException("Not a valid font string", "font");
+            if (font != null)
+            {
+                string[] parts = font.Split(':');
+                if (parts.Length != 3)
+                    throw new ArgumentException("Not a valid font string", "font");
 
-            Font loadedFont = new Font(parts[0], float.Parse(parts[1]), (FontStyle)int.Parse(parts[2]));
-            return loadedFont;
+                Font loadedFont = new Font(parts[0], float.Parse(parts[1]), (FontStyle)int.Parse(parts[2]));
+                return loadedFont;
+            }
+            return null;
         }
 
         private void colorDeLetraToolStripMenuItem_Click(object sender, EventArgs e)
@@ -238,8 +292,9 @@ namespace EditorDeTexto_SW
                 else
                 {
                     if (MessageBox.Show("Se va Proceder a Cerrar el Editor de Texto", "Editor De Texto",
-                  MessageBoxButtons.OK, MessageBoxIcon.Question) == DialogResult.OK) {                    
-                                               
+                  MessageBoxButtons.OK, MessageBoxIcon.Question) == DialogResult.OK)
+                    {
+
                         this.Close();
                     }
                 }
@@ -269,10 +324,10 @@ namespace EditorDeTexto_SW
                 {
                     saveAs();
                 }
-            } 
+            }
         }
 
-       
+
 
         private void SendToPrinter(String filePath)
         {
@@ -289,15 +344,15 @@ namespace EditorDeTexto_SW
                 p.WaitForInputIdle();
                 System.Threading.Thread.Sleep(3000);
             }
-           
+
         }
-       
+
         void DragDrop_Input(DragEventArgs e)
         {
-           try
-            {             
+            try
+            {
 
-                 if (ValidaTipo(e))
+                if (ValidaTipo(e))
                 {
                     RutaArchivo = null;
                     String Nombre = null;
@@ -333,57 +388,59 @@ namespace EditorDeTexto_SW
                                     txtEditexRT_Ul.Text = paths;
                                 }
                             }
+                            TotalText = txtEditexRT_Ul.TextLength;
                         }
                     }
 
                 }
 
-                else {
+                else
+                {
 
                     if (MessageBox.Show("Archivo No tiene Extenxion .TXT", "Editor De Texto",
                                    MessageBoxButtons.OK, MessageBoxIcon.Question) == DialogResult.OK)
                     {
-                        
+
                     }
-                }                
+                }
             }
             catch (Exception)
             {
                 throw;
-            } 
+            }
         }
 
         bool ValidaTipo(DragEventArgs e)
-        { 
-            bool bandera = false;        
-                RutaArchivo = null;               
-                DataObject data = (DataObject)e.Data;
-                if (data.ContainsFileDropList())
+        {
+            bool bandera = false;
+            RutaArchivo = null;
+            DataObject data = (DataObject)e.Data;
+            if (data.ContainsFileDropList())
+            {
+                string[] rawFiles = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                foreach (var item in rawFiles)
                 {
-                    string[] rawFiles = (string[])e.Data.GetData(DataFormats.FileDrop);
+                    string TipoArchv = item.ToString();
+                    int Total = TipoArchv.Length;
+                    string tipoArchvi = TipoArchv.Substring(Total - 3, 3);
 
-                    foreach (var item in rawFiles)
+                    if (tipoArchvi.Equals("txt"))
                     {
-                        string TipoArchv = item.ToString();
-                        int Total = TipoArchv.Length;
-                        string tipoArchvi = TipoArchv.Substring(Total - 3, 3);
+                        bandera = true;
+                    }
+                    else
+                    {
+                        bandera = false;
+                        break;
 
-                        if (tipoArchvi.Equals("txt"))
-                        {                            
-                               bandera = true;                        
-                        }  
-                        else
-                        {
-                            bandera = false;
-                            break;
-                            
-                        }
                     }
                 }
+            }
 
-            return bandera;        
+            return bandera;
         }
-               
+
         private void Nuevo_Click(object sender, EventArgs e)
         {
             NuevoArchivo();
@@ -408,13 +465,13 @@ namespace EditorDeTexto_SW
                 {
                     Buscar frm = new Buscar(txtEditexRT_Ul);
                     frm.Show();
-                }            
+                }
             }
         }
 
         private void Abrir_Click(object sender, EventArgs e)
         {
-           abrirToolStripMenuItem_Click( sender,  e);
+            abrirToolStripMenuItem_Click(sender, e);
         }
 
         private void Guardar_Click(object sender, EventArgs e)
@@ -426,14 +483,33 @@ namespace EditorDeTexto_SW
         {
             guardarComoToolStripMenuItem_Click(sender, e);
         }
-               
+
 
         private void txtEditexRT_Ul_DragEnter(object sendesr, DragEventArgs es)
-        {         
+        {
             if (txtEditexRT_Ul.TextLength > 0)
             {
-                NuevoArchivo();
-                DragDrop_Input(es);
+                TotalTextTemp = txtEditexRT_Ul.TextLength;
+                if ((TotalTextTemp > TotalText) || (TotalText == 0))
+                {
+                    if (MessageBox.Show("Desea Guardar los Cambios? ", "Editor De Texto",
+                                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        saveAs();
+                    }
+                    else
+                    {
+                        NuevoArchivo();
+                        DragDrop_Input(es);
+                    }
+
+                }
+                else
+                {
+                    NuevoArchivo();
+                    DragDrop_Input(es);
+                }
+
             }
             else
             {
@@ -449,8 +525,69 @@ namespace EditorDeTexto_SW
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
-        }      
-             
-   }    
-    
+        }
+
+        private void correctorOrtográficoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtEditexRT_Ul.Text = RevisarOrtografia(txtEditexRT_Ul.Text);
+        }
+
+        private static string RevisarOrtografia(string texto)
+        {
+            var app = new Microsoft.Office.Interop.Word.Application();
+            int SpellingErrors = 0;
+            string corregido = string.Empty;
+            if (!String.IsNullOrEmpty(texto))
+            {
+
+                app.Visible = false;
+                object template = Missing.Value;
+                object newTemplate = Missing.Value;
+                object documentType = Missing.Value;
+                object visible = false;
+                Microsoft.Office.Interop.Word._Document doc1 = app.Documents.Add(ref template, ref newTemplate,
+                ref documentType, ref visible);
+                doc1.Words.First.InsertBefore(texto);
+
+                Microsoft.Office.Interop.Word.ProofreadingErrors docErrors = doc1.SpellingErrors;
+                SpellingErrors = docErrors.Count;
+
+                object optional = Missing.Value;
+                doc1.CheckSpelling(
+                ref optional, ref optional, ref optional, ref optional, ref optional, ref optional,
+                ref optional, ref optional, ref optional, ref optional, ref optional, ref optional);
+                object first = 0;
+                object last = doc1.Characters.Count - 1;
+                corregido = doc1.Range(ref first, ref last).Text;
+            }
+
+            if (SpellingErrors == 0)
+            {
+                MessageBox.Show("No se encontraron errores en el texto");
+            }
+
+            object saveChanges = false;
+            object originalFormat = Missing.Value;
+            object routeDocument = Missing.Value;
+            app.Application.Quit(ref saveChanges, ref originalFormat, ref routeDocument);
+            return corregido;
+        }
+
+        private void btnSpellCheck_Click(object sender, EventArgs e)
+        {
+            txtEditexRT_Ul.Text = RevisarOrtografia(txtEditexRT_Ul.Text);
+        }
+
+        private void EditorTMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            foreach (Process proceso in Process.GetProcesses())
+            {
+                if (proceso.ProcessName == ConfigurationManager.AppSettings.Get("nameN"))
+                {
+                    proceso.Kill();
+                }
+            }
+        }
+    }
+
 }
