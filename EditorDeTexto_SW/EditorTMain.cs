@@ -41,7 +41,7 @@ namespace EditorDeTexto_SW
             if (ConvertFuente != null) {
                 font.Font = ConvertFuente;
                 txtEditexRT_Ul.Font = font.Font;              
-            }
+            }            
             txtEditexRT_Ul.Focus();
             txtEditexRT_Ul.AllowDrop = true;
             txtEditexRT_Ul.DragDrop += txtEditexRT_Ul_DragEnter;

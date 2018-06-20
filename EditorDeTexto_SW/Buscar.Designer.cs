@@ -83,6 +83,7 @@
             this.MinimizeBox = false;
             this.Name = "Buscar";
             this.Text = "Buscar";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Buscar_FormClosed);
             this.Load += new System.EventHandler(this.Buscar_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
