@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorDeTexto_SW", "EditorDeTexto_SW\EditorDeTexto_SW.csproj", "{8CEF56D5-DFAF-4532-A197-27093A036990}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "EditorDeTextoSetup", "EditorDeTextoSetup\EditorDeTextoSetup.vdproj", "{3E4EC1E2-19E5-4E21-9AE3-3A56068A94C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,8 @@ Global
 		{8CEF56D5-DFAF-4532-A197-27093A036990}.Debug|x86.Build.0 = Debug|x86
 		{8CEF56D5-DFAF-4532-A197-27093A036990}.Release|x86.ActiveCfg = Release|x86
 		{8CEF56D5-DFAF-4532-A197-27093A036990}.Release|x86.Build.0 = Release|x86
+		{3E4EC1E2-19E5-4E21-9AE3-3A56068A94C9}.Debug|x86.ActiveCfg = Debug
+		{3E4EC1E2-19E5-4E21-9AE3-3A56068A94C9}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

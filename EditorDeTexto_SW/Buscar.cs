@@ -50,13 +50,11 @@ namespace EditorDeTexto_SW
                 }
                 else
                 {
-                    //VerifiBusque(txtEditex, txtBuscar.Text, Color.Black);
                     Busqueda(txtEditex, txtBuscar.Text, Color.Red);
                 }
             }
             catch (Exception)
             {
-
                 throw;
             }
             finally
@@ -65,7 +63,6 @@ namespace EditorDeTexto_SW
             }
 
         }
-
 
         static void VerifiBusque(RichTextBox TextoTotal, String ListaTexto, Color color)
         {

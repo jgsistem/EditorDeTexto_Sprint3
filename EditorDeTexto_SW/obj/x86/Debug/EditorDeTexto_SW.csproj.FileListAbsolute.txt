@@ -108,8 +108,6 @@ D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\EditorDeTexto_S
 D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.Properties.Resources.resources
 D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_Sprint3-sprint3\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.csproj.GenerateResource.Cache
 D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\xd\EditorDeTexto_Sprint3\EditorDeTexto_SW\bin\Debug\EditorDeTexto_SW.exe.config
-D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\xd\EditorDeTexto_Sprint3\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.exe
-D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\xd\EditorDeTexto_Sprint3\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.pdb
 D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\xd\EditorDeTexto_Sprint3\EditorDeTexto_SW\bin\Debug\EditorDeTexto_SW.exe
 D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\xd\EditorDeTexto_Sprint3\EditorDeTexto_SW\bin\Debug\EditorDeTexto_SW.pdb
 D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\xd\EditorDeTexto_Sprint3\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.Buscar.resources
@@ -117,3 +115,5 @@ D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\xd\EditorDeText
 D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\xd\EditorDeTexto_Sprint3\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.Nostros.resources
 D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\xd\EditorDeTexto_Sprint3\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.Properties.Resources.resources
 D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\xd\EditorDeTexto_Sprint3\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.csproj.GenerateResource.Cache
+D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\xd\EditorDeTexto_Sprint3\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.exe
+D:\Documentos\MIS CURSOS\Maestria\1er Ciclo\Gestion de Proyectos\xd\EditorDeTexto_Sprint3\EditorDeTexto_SW\obj\x86\Debug\EditorDeTexto_SW.pdb

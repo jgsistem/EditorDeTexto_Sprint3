@@ -22,14 +22,11 @@ namespace EditorDeTexto_SW
 {
     public partial class EditorTMain : Form
     {
-
         String RutaArchivo, RutaApp = null;
         String TipoFuente = null;
         int TotalText, TotalTextTemp = 0;
-
         public EditorTMain()
         {
-
             InitializeComponent();
         }
 
@@ -47,9 +44,8 @@ namespace EditorDeTexto_SW
             txtEditexRT_Ul.Focus();
             txtEditexRT_Ul.AllowDrop = true;
             txtEditexRT_Ul.DragDrop += txtEditexRT_Ul_DragEnter;
-            ToolVersion.Text = "v 1.00.3";
-            RutaApp = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
-
+            ToolVersion.Text = "v 1.00.4";           
+            RutaApp = Directory.GetCurrentDirectory();
         }
 
         void EjecutarExe(string RutaApp)
@@ -132,8 +128,7 @@ namespace EditorDeTexto_SW
                         Lines = line + "\r\n";
                         txtEditexRT_Ul.Text += Lines;
                     }
-                    TotalText = txtEditexRT_Ul.TextLength;
-                    //txtEditexRT_Ul.Text = Cadena_Cuerpo.ToString();
+                    TotalText = txtEditexRT_Ul.TextLength;                    
                 }
                 BarraName.Text = RutaArchivo;
 
@@ -217,15 +212,33 @@ namespace EditorDeTexto_SW
 
         private void fuenteToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            FontDialog font = new FontDialog();
-            if (font.ShowDialog() == DialogResult.OK)
+            try
             {
-                var fontString = FontToString(font.Font);
-                txtEditexRT_Ul.Font = font.Font;
-                Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
-                config.AppSettings.Settings["Tipofuente"].Value = fontString;
-                config.Save(ConfigurationSaveMode.Modified);
+                FontDialog font = new FontDialog();
+                String rutaApp = RutaApp + "\\" + "EditorDeTexto_SW.EXE.config";
+                if (font.ShowDialog() == DialogResult.OK)
+                {
+                    var fontString = FontToString(font.Font);
+                    txtEditexRT_Ul.Font = font.Font;
+                    isPath(rutaApp);
+                    Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
+                    config.AppSettings.Settings["Tipofuente"].Value = fontString;
+                    config.Save(ConfigurationSaveMode.Modified);
+                }
             }
+            catch (Exception)
+            {
+                
+                throw;
+            }            
+        }
+
+        private void isPath(string rutaPath) {
+
+            if (!File.Exists(rutaPath)){
+                String RutaBackup = RutaApp + "\\backup\\" ;
+                File.Copy(Path.Combine(RutaBackup, "EditorDeTexto_SW.EXE.config"), Path.Combine(RutaApp, "EditorDeTexto_SW.EXE.config"));
+              }                 
         }
 
 
@@ -326,8 +339,6 @@ namespace EditorDeTexto_SW
                 }
             }
         }
-
-
 
         private void SendToPrinter(String filePath)
         {
@@ -502,7 +513,6 @@ namespace EditorDeTexto_SW
                         NuevoArchivo();
                         DragDrop_Input(es);
                     }
-
                 }
                 else
                 {
